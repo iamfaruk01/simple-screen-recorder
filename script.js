@@ -13,6 +13,56 @@ function copyUPI() {
     });
 }
 
+// ===== QR Modal Functions =====
+function enlargeQR() {
+    const modal = document.getElementById('qrModal');
+    const modalImage = document.getElementById('modalQRImage');
+    const originalImage = document.querySelector('.upi-qr img');
+    
+    // Set the modal image source to match the original
+    if (originalImage && modalImage) {
+        modalImage.src = originalImage.src;
+        modalImage.alt = originalImage.alt;
+    }
+    
+    // Show modal with animation
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeQRModal() {
+    const modal = document.getElementById('qrModal');
+    
+    // Hide modal with animation
+    modal.classList.remove('active');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
+}
+
+// Close modal when clicking outside the content
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('qrModal');
+    if (e.target === modal) {
+        closeQRModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeQRModal();
+    }
+});
+
 // ===== Parallax for orbs =====
 document.addEventListener('mousemove', (e) => {
     const orb1 = document.querySelector('.orb-1');

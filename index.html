@@ -100,8 +100,8 @@
                 </a>
 
                 <div class="upi-section">
-                    <div class="upi-qr">
-                        <img src="upi-qr.png" alt="UPI QR Code"
+                    <div class="upi-qr" onclick="enlargeQR()">
+                        <img src="images/upi-qr.webp" alt="UPI QR Code"
                             onerror="this.parentElement.innerHTML='<span>Add upi-qr.png</span>'">
                     </div>
                     <div class="upi-id">
@@ -112,6 +112,19 @@
             </div>
         </div>
     </main>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="qr-modal">
+        <div class="qr-modal-content">
+            <div class="qr-modal-header">
+                <h3>UPI QR Code</h3>
+                <button class="qr-modal-close" onclick="closeQRModal()">&times;</button>
+            </div>
+            <div class="qr-modal-body">
+                <img src="images/upi-qr.webp" alt="UPI QR Code" id="modalQRImage">
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

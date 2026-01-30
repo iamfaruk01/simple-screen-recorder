@@ -267,6 +267,13 @@ h1 {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.upi-qr:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
 }
 
 .upi-qr img {
@@ -379,5 +386,109 @@ h1 {
     .upi-qr {
         width: 140px;
         height: 140px;
+    }
+}
+
+/* ===== QR Modal ===== */
+.qr-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.qr-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.qr-modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 0;
+    max-width: 90%;
+    max-height: 90%;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.qr-modal.active .qr-modal-content {
+    transform: scale(1);
+}
+
+.qr-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.qr-modal-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.qr-modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.qr-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.qr-modal-body {
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-modal-body img {
+    max-width: 400px;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+@media (max-width: 600px) {
+    .qr-modal-body img {
+        max-width: 300px;
+        max-height: 300px;
+    }
+    
+    .qr-modal-header {
+        padding: 16px 20px;
+    }
+    
+    .qr-modal-body {
+        padding: 20px;
     }
 }
