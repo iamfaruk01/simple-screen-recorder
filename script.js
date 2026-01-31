@@ -1,3 +1,67 @@
+// ===== Screenshot Carousel =====
+let currentSlideIndex = 1;
+
+function currentSlide(n) {
+    showSlide(currentSlideIndex = n);
+}
+
+function showSlide(n) {
+    const slides = document.getElementsByClassName('screenshot-container');
+    const dots = document.getElementsByClassName('dot');
+    
+    if (n > slides.length) currentSlideIndex = slides.length;
+    if (n < 1) currentSlideIndex = 1;
+    
+    // Hide all slides
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = 'none';
+    }
+    
+    // Remove active class from all dots
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].classList.remove('active');
+    }
+    
+    // Show current slide and activate dot
+    slides[currentSlideIndex - 1].style.display = 'flex';
+    dots[currentSlideIndex - 1].classList.add('active');
+}
+
+// Auto-advance carousel every 4 seconds
+setInterval(() => {
+    currentSlideIndex++;
+    const slides = document.getElementsByClassName('screenshot-container');
+    if (currentSlideIndex > slides.length) currentSlideIndex = 1;
+    showSlide(currentSlideIndex);
+}, 4000);
+
+// ===== Support Modal Functions =====
+function openSupportModal() {
+    const modal = document.getElementById('supportModal');
+    
+    // Show modal with animation
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSupportModal() {
+    const modal = document.getElementById('supportModal');
+    
+    // Hide modal with animation
+    modal.classList.remove('active');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
+}
+
 // ===== Copy UPI ID =====
 function copyUPI() {
     const upiId = document.getElementById('upiId').textContent;
@@ -13,26 +77,13 @@ function copyUPI() {
     });
 }
 
-// ===== QR Modal Functions =====
-function enlargeQR() {
-    const modal = document.getElementById('qrModal');
-    const modalImage = document.getElementById('modalQRImage');
-    const originalImage = document.querySelector('.upi-qr img');
-    
-    // Set the modal image source to match the original
-    if (originalImage && modalImage) {
-        modalImage.src = originalImage.src;
-        modalImage.alt = originalImage.alt;
-    }
-    
-    // Show modal with animation
-    modal.style.display = 'flex';
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 10);
-    
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
+// ===== QR Tooltip Functions =====
+function showQRTooltip() {
+    // The tooltip is shown via CSS hover, no JavaScript needed
+}
+
+function hideQRTooltip() {
+    // The tooltip is hidden via CSS hover, no JavaScript needed
 }
 
 function closeQRModal() {
@@ -50,9 +101,14 @@ function closeQRModal() {
 
 // Close modal when clicking outside the content
 document.addEventListener('click', (e) => {
-    const modal = document.getElementById('qrModal');
-    if (e.target === modal) {
+    const qrModal = document.getElementById('qrModal');
+    const supportModal = document.getElementById('supportModal');
+    
+    if (e.target === qrModal) {
         closeQRModal();
+    }
+    if (e.target === supportModal) {
+        closeSupportModal();
     }
 });
 
@@ -60,6 +116,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeQRModal();
+        closeSupportModal();
     }
 });
 
